@@ -113,7 +113,7 @@ export function ContactSection() {
             viewport={{ once: true }}
           >
             <div className="p-8 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="clarity-fully-masked space-y-6">
                 {/* Name */}
                 <div>
                   <label

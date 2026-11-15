@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Syne } from 'next/font/google'
+import { ClarityConsent } from '@/components/clarity-consent'
 import './globals.css'
 
 const syne = Syne({ subsets: ['latin'], weight: ['400', '500', '600', '700'] })
@@ -46,6 +47,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth dark">
       <body className={`${syne.className} antialiased bg-background text-foreground`}>
         {children}
+        <ClarityConsent />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
