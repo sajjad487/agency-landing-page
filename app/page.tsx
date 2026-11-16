@@ -40,17 +40,6 @@ export default function Home() {
       <main id="main">
         <section className="hero" aria-labelledby="hero-title">
           <div className="glow" aria-hidden="true"><span /></div>
-          <div className="ai-visual" aria-hidden="true">
-            <span className="ai-core" />
-            <span className="ai-orbit ai-orbit-one" />
-            <span className="ai-orbit ai-orbit-two" />
-            <span className="ai-orbit ai-orbit-three" />
-            <span className="ai-node ai-node-one" />
-            <span className="ai-node ai-node-two" />
-            <span className="ai-node ai-node-three" />
-            <span className="ai-node ai-node-four" />
-            <span className="ai-caption">For brands ready to grow.</span>
-          </div>
           <div className="wrap hero-inner">
             <p className="eyebrow">E-commerce growth agency</p>
             <h1 id="hero-title">Growth is<br />no <em>accident.</em></h1>
@@ -142,6 +131,10 @@ const styles = `
   .gm .button-lime { background: var(--lime); color: #101506; box-shadow: 0 8px 35px #a5fb2922; }
   .gm .button-lime:hover { background: #dbff92; }
   .gm .hero { position: relative; isolation: isolate; overflow: hidden; margin-inline: clamp(12px, 2.5vw, 40px); min-height: 610px; border: 1px solid #373f29; border-radius: 26px; background: #10140d; }
+  .gm .hero .eyebrow, .gm .hero h1 em, .gm .hero .secondary { color: #f7f9f2; }
+  .gm .hero .intro-highlight { padding: 0; border-radius: 0; background: transparent; color: #f7f9f2; }
+  .gm .hero .button-lime { border-color: #4c6e9e; background: #173052; color: #fff; box-shadow: 0 8px 35px #17305266; }
+  .gm .hero .button-lime:hover { background: #21436d; }
   .gm .glow { position: absolute; z-index: -1; inset: 0; overflow: hidden; background: radial-gradient(ellipse at 90% 50%, #293e16, transparent 61%); }
   .gm .glow span {
     position: absolute;
@@ -153,23 +146,6 @@ const styles = `
     filter: blur(22px);
   }
   .gm .glow::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #10140d 5%, #10140d 29%, #10140de8 43%, transparent 87%); }
-  .gm .ai-visual { position: absolute; z-index: 0; top: 50%; right: 5%; width: min(43vw, 500px); aspect-ratio: 1; transform: translateY(-50%); pointer-events: none; }
-  .gm .ai-core { position: absolute; top: 50%; left: 50%; width: 25%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle at 35% 30%, #f0ffca 0 5%, #c4fa56 18%, #88bd31 43%, #c4fa5633 70%, transparent 74%); box-shadow: 0 0 34px #c4fa5680, 0 0 110px #c4fa5645; animation: core-breathe 4s ease-in-out infinite; }
-  .gm .ai-core::after { content: ""; position: absolute; inset: 23%; border: 1px solid #efffc877; border-radius: 50%; box-shadow: inset 0 0 16px #e4ff8d80; }
-  .gm .ai-orbit { position: absolute; inset: 13%; border: 1px solid #d7ff8b55; border-radius: 50%; transform: rotate(-32deg) scaleY(.56); box-shadow: 0 0 18px #c4fa561c; }
-  .gm .ai-orbit-one { animation: orbit-drift 26s linear infinite; }
-  .gm .ai-orbit-two { inset: 2% 24%; transform: rotate(48deg) scaleY(.68); border-color: #c4fa5638; animation: orbit-drift-reverse 34s linear infinite; }
-  .gm .ai-orbit-three { inset: 22% -4%; transform: rotate(-62deg) scaleY(.62); border-style: dashed; border-color: #edffc544; animation: orbit-drift 42s linear infinite; }
-  .gm .ai-node { position: absolute; width: 9px; aspect-ratio: 1; border-radius: 50%; background: #e9ffae; box-shadow: 0 0 16px 4px #c4fa5680; animation: node-float 3.6s ease-in-out infinite; }
-  .gm .ai-node-one { top: 19%; left: 28%; }
-  .gm .ai-node-two { top: 31%; right: 15%; animation-delay: -1.2s; }
-  .gm .ai-node-three { bottom: 18%; left: 35%; width: 6px; animation-delay: -2.1s; }
-  .gm .ai-node-four { right: 26%; bottom: 25%; width: 5px; animation-delay: -.6s; }
-  .gm .ai-caption { position: absolute; right: 8%; bottom: 14%; padding: 8px 12px; border: 1px solid #e3ffad4d; border-radius: 999px; background: #10140d9c; color: #e5f8c0; font-size: 10px; font-weight: 650; letter-spacing: .13em; text-transform: uppercase; backdrop-filter: blur(8px); }
-  @keyframes orbit-drift { to { transform: rotate(328deg) scaleY(.56); } }
-  @keyframes orbit-drift-reverse { to { transform: rotate(-312deg) scaleY(.68); } }
-  @keyframes core-breathe { 50% { transform: translate(-50%, -50%) scale(1.12); filter: brightness(1.18); } }
-  @keyframes node-float { 50% { translate: 0 -8px; opacity: .62; } }
   .gm .hero-inner { position: relative; z-index: 1; padding-block: clamp(80px, 9vw, 138px); }
   .gm .eyebrow { margin: 0 0 16px; color: var(--lime); text-transform: uppercase; letter-spacing: .15em; font-size: 12px; font-weight: 700; }
   .gm h1, .gm h2, .gm h3, .gm p { margin-top: 0; }
@@ -209,13 +185,11 @@ const styles = `
     .gm .hero-inner { padding-block: 68px; }
     .gm .glow span { width: 98%; right: -64%; opacity: .65; }
     .gm .glow::after { background: linear-gradient(90deg, #10140d 3%, #10140df0 35%, #10140d55 100%); }
-    .gm .ai-visual { width: min(70vw, 340px); right: -10%; top: 58%; opacity: .56; }
-    .gm .ai-caption { right: 17%; bottom: 9%; }
     .gm .services, .gm .steps { grid-template-columns: 1fr; }
     .gm .actions { gap: 16px 20px; }
     .gm .footer { flex-wrap: wrap; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .gm .ai-core, .gm .ai-orbit, .gm .ai-node, .gm .card { animation: none; transition: none; }
+    .gm .card { animation: none; transition: none; }
   }
 `
