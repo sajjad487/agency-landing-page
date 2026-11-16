@@ -44,7 +44,7 @@ export function ClarityConsent() {
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="max-w-xl">
-              <h2 className="text-base font-semibold">Help us improve Growth Mark</h2>
+              <h2 className="text-base font-semibold">Help us improve NORTHMARK</h2>
               <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                 With your permission, Microsoft Clarity uses session recordings and interaction analytics to help us understand site usage. You can decline and still use the site.
               </p>

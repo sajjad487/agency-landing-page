@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Growth Mark | E-commerce Marketing Agency',
+  title: 'NORTHMARK | E-commerce Marketing Agency',
   description:
-    'Growth Mark helps growing e-commerce brands turn more website visitors into customers through design, strategy, content, and AI-powered optimization.',
+    'NORTHMARK helps growing e-commerce brands turn more website visitors into customers through design, strategy, content, and AI-powered optimization.',
 }
 
 const services = [
@@ -20,7 +20,7 @@ const steps = [
 ]
 
 export default function Home() {
-  const email = process.env.GROWTH_MARK_EMAIL?.trim()
+  const email = process.env.NORTHMARK_EMAIL?.trim()
   const contactLink = email
     ? `mailto:${email}?subject=Growth%20Mark%20project%20inquiry`
     : null
@@ -29,7 +29,7 @@ export default function Home() {
     <div className="gm" id="top">
       <a className="skip" href="#main">Skip to content</a>
       <header className="header wrap">
-        <a className="brand" href="#top"><span className="mark" aria-hidden="true">↗</span>Growth Mark</a>
+        <a className="brand" href="#top"><span className="mark" aria-hidden="true">↗</span>NORTHMARK</a>
         <nav aria-label="Main navigation">
           <a href="#services">Services</a>
           <a href="#approach">Approach</a>
@@ -86,7 +86,7 @@ export default function Home() {
             {contactLink ? (
               <>
                 <p>Send us your store URL and tell us where you’d like help.</p>
-                <a className="button button-lime" href={contactLink}>Email Growth Mark <span aria-hidden="true">↗</span></a>
+                <a className="button button-lime" href={contactLink}>Email NORTHMARK <span aria-hidden="true">↗</span></a>
               </>
             ) : <p>Project inquiries will open soon.</p>}
           </div>
@@ -94,7 +94,7 @@ export default function Home() {
       </main>
 
       <footer className="footer wrap">
-        <a className="brand" href="#top"><span className="mark" aria-hidden="true">↗</span>Growth Mark</a>
+        <a className="brand" href="#top"><span className="mark" aria-hidden="true">↗</span>NORTHMARK</a>
         <a className="secondary" href="#top">Back to top <span aria-hidden="true">↑</span></a>
       </footer>
       <style>{styles}</style>
