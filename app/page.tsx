@@ -49,7 +49,7 @@ export default function Home() {
             <span className="ai-node ai-node-two" />
             <span className="ai-node ai-node-three" />
             <span className="ai-node ai-node-four" />
-            <span className="ai-caption">AI-powered growth</span>
+            <span className="ai-caption">For brands ready to grow.</span>
           </div>
           <div className="wrap hero-inner">
             <p className="eyebrow">E-commerce growth agency</p>
