@@ -54,7 +54,7 @@ export default function Home() {
           <div className="wrap hero-inner">
             <p className="eyebrow">E-commerce growth agency</p>
             <h1 id="hero-title">Growth is<br />no <em>accident.</em></h1>
-            <p className="intro">We help growing e-commerce brands turn more website visitors into customers through conversion-focused design, strategic marketing, creative content, and AI-powered optimization.</p>
+            <p className="intro">We help growing e-commerce brands turn more website <span className="intro-highlight">visitors into</span> customers through conversion-focused design, strategic <span className="intro-highlight">marketing</span>, creative content, and AI-powered optimization.</p>
             <div className="actions">
               <a className="button button-lime" href="#contact">Talk about your store <span aria-hidden="true">↗</span></a>
               <a className="secondary" href="#services">Explore services <span aria-hidden="true">↓</span></a>
@@ -176,6 +176,7 @@ const styles = `
   .gm h1 { margin-bottom: 26px; font-size: clamp(56px, 9.3vw, 140px); line-height: .91; font-weight: 680; letter-spacing: -.085em; }
   .gm h1 em { color: var(--lime); font-weight: 550; }
   .gm .intro { max-width: 500px; margin-bottom: 28px; color: #e0e5d9; font-size: clamp(16px, 1.8vw, 19px); }
+  .gm .intro-highlight { padding-inline: .16em; border-radius: .15em; background: var(--lime); color: #0b0d0a; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .gm .section { padding-block: clamp(58px, 8vw, 112px); scroll-margin-top: 12px; }
   .gm h2 { max-width: 790px; margin-bottom: 32px; font-size: clamp(34px, 5.3vw, 70px); font-weight: 650; line-height: 1.03; letter-spacing: -.065em; }
   .gm h3 { margin-bottom: 10px; font-size: 22px; line-height: 1.17; letter-spacing: -.035em; }
