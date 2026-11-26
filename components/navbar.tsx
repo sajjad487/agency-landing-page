@@ -1,104 +1,69 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 
-export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+const serviceLinks = [
+  { label: 'SEO', href: '/services/seo', description: 'Organic search foundations' },
+  { label: 'AEO', href: '/services/aeo', description: 'Clearer answers for search' },
+  { label: 'GEO', href: '/services/geo', description: 'Generative search visibility' },
+  { label: 'AI Search Audit', href: '/services/ai-search-audit', description: 'A human-led visibility review' },
+]
 
-  const menuItems = [
-    { label: 'Services', href: '#services' },
-    { label: 'Process', href: '#process' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'FAQ', href: '#faq' },
-  ]
+export function SiteHeader() {
+  const pathname = usePathname()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const servicesMenuRef = useRef<HTMLDetailsElement>(null)
+
+  useEffect(() => {
+    if (servicesMenuRef.current) servicesMenuRef.current.open = false
+  }, [pathname])
+
+  function closeMenu() {
+    setMenuOpen(false)
+  }
 
   return (
-    <motion.nav
-      className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-md border-b border-border/50"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <motion.div
-            className="flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-          >
-            <div className="w-8 h-8 bg-gradient-to-br from-primary via-primary/70 to-secondary rounded-lg flex items-center justify-center">
-              <span className="text-sm font-bold text-primary-foreground">C</span>
+    <header className="nm-header">
+      <div className="nm-container nm-header-inner">
+        <Link className="nm-brand" href="/" aria-label="NORTHMARK home" onClick={closeMenu}>
+          <span className="nm-brand-symbol" aria-hidden="true"><span /></span>
+          <span>NORTHMARK</span>
+        </Link>
+        <button
+          className="nm-menu-toggle"
+          type="button"
+          aria-expanded={menuOpen}
+          aria-controls="primary-navigation"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+        </button>
+        <nav id="primary-navigation" className={`nm-nav${menuOpen ? ' is-open' : ''}`} aria-label="Main navigation">
+          <details ref={servicesMenuRef} className="nm-services-menu">
+            <summary>Services <span aria-hidden="true" /></summary>
+            <div className="nm-services-dropdown">
+              <Link href="/services" className="nm-dropdown-overview" onClick={closeMenu}>All services <span aria-hidden="true">→</span></Link>
+              {serviceLinks.map((service) => (
+                <Link key={service.href} href={service.href} onClick={closeMenu}>
+                  <strong>{service.label}</strong>
+                  <span>{service.description}</span>
+                </Link>
+              ))}
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Corvin Web
-            </span>
-          </motion.div>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
-            {menuItems.map((item) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
-                whileHover={{ color: '#00d9ff' }}
-              >
-                {item.label}
-              </motion.a>
-            ))}
-          </div>
-
-          {/* CTA Button & Mobile Menu Toggle */}
-          <div className="flex items-center gap-4">
-            <Button
-              variant="default"
-              className="hidden md:block bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg"
-              onClick={() => {
-                const element = document.querySelector('#contact')
-                element?.scrollIntoView({ behavior: 'smooth' })
-              }}
-            >
-              Get Started
-            </Button>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2 text-foreground"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <motion.div
-            className="md:hidden pb-4 space-y-2"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            {menuItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="block px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-card rounded transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.label}
-              </a>
-            ))}
-          </motion.div>
-        )}
+          </details>
+          <Link href="/about" onClick={closeMenu}>About</Link>
+          <Link href="/insights" onClick={closeMenu}>Insights</Link>
+          <Link href="/faq" onClick={closeMenu}>FAQs</Link>
+          <Link href="/contact" onClick={closeMenu}>Contact</Link>
+          <Link className="nm-button nm-button-primary nm-nav-cta" href="/contact?service=ai-search-audit" onClick={closeMenu}>
+            Get a Search Visibility Audit <span aria-hidden="true">→</span>
+          </Link>
+        </nav>
       </div>
-    </motion.nav>
+    </header>
   )
 }
