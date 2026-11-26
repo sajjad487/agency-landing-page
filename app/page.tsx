@@ -1,195 +1,216 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
+import { FaqList } from '@/components/faq-list'
+import { JsonLd, organizationSchema } from '@/components/json-ld'
+import { homepageFaqs } from '@/lib/faqs'
+import { absoluteUrl, pageMetadata } from '@/lib/site'
+import { services } from '@/lib/services'
 
 export const metadata: Metadata = {
-  title: 'NORTHMARK | E-commerce Marketing Agency',
-  description:
-    'NORTHMARK helps growing e-commerce brands turn more website visitors into customers through design, strategy, content, and AI-powered optimization.',
+  ...pageMetadata(
+    'Search Visibility for the AI Era',
+    'NORTHMARK is a Budapest-based search optimization agency helping businesses improve visibility across search engines, answer engines and generative search platforms.',
+    '/',
+  ),
+  title: { absolute: 'NORTHMARK | Search Visibility for the AI Era' },
 }
 
-const services = [
-  { title: 'Conversion-focused design', copy: 'Give shoppers what they need to buy with clearer product pages, stronger landing pages, and a smoother mobile experience.' },
-  { title: 'Strategic marketing', copy: 'Find where customers drop off, sharpen your offer, and prioritize the changes most worth testing.' },
-  { title: 'Creative content', copy: 'Show your products in use through short-form video concepts, ad creative, and product storytelling.' },
-  { title: 'AI-powered optimization', copy: 'Use AI to review customer feedback, organize research, and develop test ideas you can validate with real shopper behavior.' },
+const visibilityStages = [
+  { number: '01', title: 'Discoverability', description: 'Can search engines and AI systems find your business information?' },
+  { number: '02', title: 'Understandability', description: 'Can they interpret what you offer and who you serve?' },
+  { number: '03', title: 'Credibility', description: 'Is your information clear, consistent and supported by trustworthy sources?' },
+  { number: '04', title: 'Conversion', description: 'Can a potential customer confidently take the next step?' },
 ]
 
-const steps = [
-  { title: 'Find the friction', copy: 'Review your storefront, offer, and available analytics to see where shoppers hesitate.' },
-  { title: 'Make the change', copy: 'Start with one high-priority improvement and build the design, copy, or creative it needs.' },
-  { title: 'Measure and refine', copy: 'Agree on what to track, review the results once there’s enough data, and decide what to test next.' },
+const process = [
+  { number: '01', title: 'Audit', description: 'Assess search visibility, technical foundations, website structure, content and how your business is represented.' },
+  { number: '02', title: 'Strategy', description: 'Prioritize opportunities around your objectives, customer search behavior and competitive landscape.' },
+  { number: '03', title: 'Optimize', description: 'Improve technical foundations, landing pages, content, structured information and business details.' },
+  { number: '04', title: 'Measure', description: 'Review search performance, AI visibility signals, citations, traffic and relevant business outcomes.' },
 ]
 
-export default function Home() {
-  const email = process.env.NORTHMARK_EMAIL?.trim()
-  const contactLink = email
-    ? `mailto:${email}?subject=NORTHMARK%20project%20inquiry`
-    : null
+const principles = [
+  'Search-first website architecture',
+  'Human-readable and machine-readable content',
+  'Transparent, research-driven methodology',
+  'Sustainable visibility over shortcuts',
+  'Business-focused measurement',
+  'No manipulative tactics or ranking guarantees',
+]
+
+const platformNames = ['Google', 'Bing', 'ChatGPT', 'Gemini', 'Perplexity', 'Microsoft Copilot']
+
+export default function HomePage() {
+  const origin = absoluteUrl('/')
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: homepageFaqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  }
+  const webPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${origin}#webpage`,
+    url: origin,
+    name: 'Search Visibility for the AI Era | NORTHMARK',
+    description: 'SEO, AEO, GEO and AI search visibility for businesses.',
+    isPartOf: { '@id': `${origin}#website` },
+    about: { '@id': `${origin}#organization` },
+    inLanguage: 'en',
+  }
 
   return (
-    <div className="gm" id="top">
-      <a className="skip" href="#main">Skip to content</a>
-      <header className="header wrap">
-        <a className="brand" href="#top"><span className="mark" aria-hidden="true">↗</span>NORTHMARK</a>
-        <nav aria-label="Main navigation">
-          <a href="#services">Services</a>
-          <a href="#approach">Approach</a>
-        </nav>
-        <a className="button button-outline" href="#contact">Let’s talk <span aria-hidden="true">↗</span></a>
-      </header>
+    <main id="main-content">
+      <JsonLd data={organizationSchema(origin)} />
+      <JsonLd data={webPageSchema} />
+      <JsonLd data={faqSchema} />
 
-      <main id="main">
-        <section className="hero" aria-labelledby="hero-title">
-          <div className="glow" aria-hidden="true"><span /></div>
-          <div className="wrap hero-inner">
-            <p className="eyebrow">E-commerce growth agency</p>
-            <h1 id="hero-title">Growth is<br />no <em>accident.</em></h1>
-            <p className="intro">We help growing e-commerce brands turn more website <span className="intro-highlight">visitors into</span> customers through conversion-focused design, strategic <span className="intro-highlight">marketing</span>, creative content, and AI-powered optimization.</p>
-            <div className="actions">
-              <a className="button button-lime" href="#contact">Talk about your store <span aria-hidden="true">↗</span></a>
-              <a className="secondary" href="#services">Explore services <span aria-hidden="true">↓</span></a>
+      <section className="nm-hero">
+        <div className="nm-container nm-hero-grid">
+          <div className="nm-hero-copy">
+            <p className="nm-eyebrow">Search visibility for the AI era</p>
+            <h1>Be Found.<br />Be Understood.<br /><span>Be Recommended.</span></h1>
+            <p className="nm-hero-intro">NORTHMARK is a Budapest-based search optimization agency helping businesses improve their visibility across traditional search engines, AI-powered answer engines and generative search platforms.</p>
+            <div className="nm-actions">
+              <Link className="nm-button nm-button-primary" href="/contact?service=ai-search-audit">Get a Search Visibility Audit <span aria-hidden="true">→</span></Link>
+              <Link className="nm-button nm-button-secondary" href="/services">Explore Our Services <span aria-hidden="true">→</span></Link>
             </div>
+            <p className="nm-service-line">SEO <span>·</span> AEO <span>·</span> GEO <span>·</span> AI Search Visibility</p>
           </div>
-        </section>
+          <div className="nm-hero-visual" role="img" aria-label="Diagram connecting a business to search engines, answer platforms and potential customers">
+            <div className="nm-visual-heading"><span>Search ecosystem</span><span className="nm-visual-rule" /></div>
+            <div className="nm-visual-map">
+              <div className="nm-map-node nm-map-business"><span className="nm-node-symbol">N</span><strong>Your business</strong><small>Clear, useful information</small></div>
+              <div className="nm-map-connectors" aria-hidden="true"><i /><i /><i /><i /></div>
+              <div className="nm-map-platforms">
+                <span>Search engines</span>
+                <span>Answer engines</span>
+                <span>Generative search</span>
+                <span>People</span>
+              </div>
+            </div>
+            <p className="nm-visual-note">Visibility begins with being understood.</p>
+          </div>
+        </div>
+      </section>
 
-        <section className="section wrap" id="services" aria-labelledby="services-title">
-          <p className="eyebrow">Services</p>
-          <h2 id="services-title">From first click to checkout.</h2>
-          <div className="services">
-            {services.map((service) => (
-              <article className="card" key={service.title}>
-                <h3>{service.title}</h3>
-                <p>{service.copy}</p>
+      <section className="nm-section nm-search-shift" aria-labelledby="search-shift-title">
+        <div className="nm-container nm-split-section">
+          <div>
+            <p className="nm-eyebrow">A changing landscape</p>
+            <h2 id="search-shift-title">Your Customers Are Searching Differently.</h2>
+          </div>
+          <div className="nm-copy-block">
+            <p>Search is no longer limited to a list of blue links. Customers increasingly use AI-powered platforms to discover businesses, compare solutions and make purchasing decisions.</p>
+            <p>Businesses need to be discoverable, understandable and credible across both traditional and AI-powered search environments.</p>
+          </div>
+        </div>
+        <div className="nm-container">
+          <ul className="nm-platform-list" aria-label="Search platforms NORTHMARK helps businesses optimize for">
+            {platformNames.map((platform) => <li key={platform}>{platform}</li>)}
+          </ul>
+          <p className="nm-disclaimer">Platform names are used for identification only. NORTHMARK is independent and does not claim partnership or endorsement by these companies.</p>
+        </div>
+      </section>
+
+      <section className="nm-section nm-section-tint" aria-labelledby="services-title">
+        <div className="nm-container">
+          <div className="nm-section-heading">
+            <p className="nm-eyebrow">What we do</p>
+            <h2 id="services-title">Three Disciplines.<br /><span>One Search Strategy.</span></h2>
+            <p>Connected services for stronger, clearer visibility wherever your customers search.</p>
+          </div>
+          <div className="nm-service-grid">
+            {services.map((service, index) => (
+              <article className="nm-service-card" key={service.slug}>
+                <span className="nm-card-number">0{index + 1}</span>
+                <p className="nm-card-acronym">{service.acronym}</p>
+                <h3>{service.shortTitle}</h3>
+                <p>{service.summary}</p>
+                <Link href={`/services/${service.slug}`} className="nm-text-link">Explore {service.acronym === 'AUDIT' ? 'AI Search Audit' : service.acronym} <span aria-hidden="true">→</span></Link>
               </article>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="section approach" id="approach" aria-labelledby="approach-title">
-          <div className="wrap">
-            <p className="eyebrow">Our approach</p>
-            <h2 id="approach-title">Start with what’s holding sales back.</h2>
-            <ol className="steps">
-              {steps.map((step, index) => (
-                <li key={step.title}>
-                  <span className="step-number" aria-hidden="true">0{index + 1}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.copy}</p>
-                </li>
-              ))}
-            </ol>
+      <section className="nm-section" aria-labelledby="visibility-title">
+        <div className="nm-container">
+          <div className="nm-section-heading nm-section-heading-wide">
+            <p className="nm-eyebrow">The visibility framework</p>
+            <h2 id="visibility-title">How Search Visibility Works</h2>
+            <p>Strong discovery is a sequence: systems need access, clarity and credible information before a customer can act.</p>
           </div>
-        </section>
+          <ol className="nm-stage-grid">
+            {visibilityStages.map((stage) => (
+              <li key={stage.number}>
+                <span className="nm-stage-number">{stage.number}</span>
+                <h3>{stage.title}</h3>
+                <p>{stage.description}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="nm-caveat">Optimization improves the conditions for discovery and visibility; search platforms determine their own results and no recommendation or ranking can be guaranteed.</p>
+        </div>
+      </section>
 
-        <section className="section wrap" id="contact" aria-labelledby="contact-title">
-          <div className="contact">
-            <h2 id="contact-title">What would you like to improve about your store?</h2>
-            {contactLink ? (
-              <>
-                <p>Send us your store URL and tell us where you’d like help.</p>
-                <a className="button button-lime" href={contactLink}>Email NORTHMARK <span aria-hidden="true">↗</span></a>
-              </>
-            ) : <p>Project inquiries will open soon.</p>}
+      <section className="nm-section nm-process-section" aria-labelledby="process-title">
+        <div className="nm-container nm-process-layout">
+          <div className="nm-process-intro">
+            <p className="nm-eyebrow">How we work</p>
+            <h2 id="process-title">A Structured Approach to Search Visibility.</h2>
+            <p>Clear scope, research-led priorities and reporting that separates observed signals from business outcomes.</p>
+            <Link className="nm-text-link" href="/about">Get to know NORTHMARK <span aria-hidden="true">→</span></Link>
           </div>
-        </section>
-      </main>
+          <ol className="nm-process-list">
+            {process.map((step) => (
+              <li key={step.number}>
+                <span>{step.number}</span>
+                <div><h3>{step.title}</h3><p>{step.description}</p></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
-      <footer className="footer wrap">
-        <a className="brand" href="#top"><span className="mark" aria-hidden="true">↗</span>NORTHMARK</a>
-        <a className="secondary" href="#top">Back to top <span aria-hidden="true">↑</span></a>
-      </footer>
-      <style>{styles}</style>
-    </div>
+      <section className="nm-section" aria-labelledby="why-title">
+        <div className="nm-container nm-why-layout">
+          <div className="nm-section-heading">
+            <p className="nm-eyebrow">Why NORTHMARK</p>
+            <h2 id="why-title">Built for the Next Era of Search.</h2>
+            <p>Independent thinking, transparent execution and an emphasis on durable foundations.</p>
+          </div>
+          <ul className="nm-principle-list">
+            {principles.map((principle) => <li key={principle}><span aria-hidden="true">→</span>{principle}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section className="nm-section nm-section-tint" aria-labelledby="faq-title">
+        <div className="nm-container nm-faq-layout">
+          <div className="nm-section-heading">
+            <p className="nm-eyebrow">Good to know</p>
+            <h2 id="faq-title">Questions, Clearly Answered.</h2>
+            <Link className="nm-text-link" href="/faq">Visit the full FAQ <span aria-hidden="true">→</span></Link>
+          </div>
+          <FaqList items={homepageFaqs.map((faq) => ({ ...faq, service: faq.service ?? (faq.category === 'SEO' ? 'seo' : faq.category === 'AEO' ? 'aeo' : undefined) }))} />
+        </div>
+      </section>
+
+      <section className="nm-final-cta">
+        <div className="nm-container nm-final-cta-inner">
+          <div>
+            <p className="nm-eyebrow">Make the next move</p>
+            <h2>Make Your Business Easier to Discover.</h2>
+            <p>Understand how your business appears across search engines and AI-powered platforms, identify gaps and build a strategy for stronger visibility.</p>
+          </div>
+          <Link className="nm-button nm-button-light" href="/contact?service=ai-search-audit">Request a Search Visibility Audit <span aria-hidden="true">→</span></Link>
+        </div>
+      </section>
+    </main>
   )
 }
-
-const styles = `
-  body { margin: 0; background: #0b0d0a; }
-  .gm {
-    --lime: #c4fa56;
-    --muted: #bdc3b7;
-    --line: #30352a;
-    background: #0b0d0a;
-    color: #f7f9f2;
-    min-height: 100vh;
-    font: 400 16px/1.55 Inter, Geist, system-ui, sans-serif;
-  }
-  .gm *, .gm *::before, .gm *::after { box-sizing: border-box; }
-  .gm a { color: inherit; text-decoration: none; }
-  .gm a:focus-visible { outline: 2px solid var(--lime); outline-offset: 5px; }
-  .gm .skip { position: absolute; z-index: 3; top: 12px; left: 12px; padding: 10px; background: #10130d; transform: translateY(-160%); }
-  .gm .skip:focus { transform: none; }
-  .gm .wrap { width: min(1180px, calc(100% - 80px)); margin-inline: auto; }
-  .gm .header, .gm .footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 22px; }
-  .gm .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 750; letter-spacing: -.05em; }
-  .gm .mark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; background: var(--lime); color: #111509; font-weight: 800; }
-  .gm nav, .gm .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; }
-  .gm nav a, .gm .secondary { color: var(--muted); font-size: 14px; font-weight: 600; }
-  .gm nav a:hover, .gm .secondary:hover { color: var(--lime); }
-  .gm .button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 18px; border: 1px solid transparent; border-radius: 10px; font-size: 14px; font-weight: 750; }
-  .gm .button-outline { border-color: #596745; }
-  .gm .button-outline:hover { border-color: var(--lime); }
-  .gm .button-lime { background: var(--lime); color: #101506; box-shadow: 0 8px 35px #a5fb2922; }
-  .gm .button-lime:hover { background: #dbff92; }
-  .gm .hero { position: relative; isolation: isolate; overflow: hidden; margin-inline: clamp(12px, 2.5vw, 40px); min-height: 610px; border: 1px solid #373f29; border-radius: 26px; background: #10140d; }
-  .gm .hero .eyebrow, .gm .hero h1 em, .gm .hero .secondary { color: #f7f9f2; }
-  .gm .hero .intro-highlight { padding: 0; border-radius: 0; background: transparent; color: #f7f9f2; }
-  .gm .hero .button-lime { border-color: #4c6e9e; background: #173052; color: #fff; box-shadow: 0 8px 35px #17305266; }
-  .gm .hero .button-lime:hover { background: #21436d; }
-  .gm .glow { position: absolute; z-index: -1; inset: 0; overflow: hidden; background: radial-gradient(ellipse at 90% 50%, #293e16, transparent 61%); }
-  .gm .glow span {
-    position: absolute;
-    width: 76%; height: 125%; right: -22%; top: -18%;
-    border-radius: 48%;
-    transform: rotate(-35deg);
-    background: conic-gradient(from 140deg, #0c1007 0%, #c4fa56 17%, #314f13 33%, #080d05 47%, #93e52f 69%, #e0ff9c 76%, #2f4517 86%, #0c1007 100%);
-    box-shadow: 0 0 100px #92ec3770;
-    filter: blur(22px);
-  }
-  .gm .glow::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #10140d 5%, #10140d 29%, #10140de8 43%, transparent 87%); }
-  .gm .hero-inner { position: relative; z-index: 1; padding-block: clamp(80px, 9vw, 138px); }
-  .gm .eyebrow { margin: 0 0 16px; color: var(--lime); text-transform: uppercase; letter-spacing: .15em; font-size: 12px; font-weight: 700; }
-  .gm h1, .gm h2, .gm h3, .gm p { margin-top: 0; }
-  .gm h1 { margin-bottom: 26px; font-size: clamp(56px, 9.3vw, 140px); line-height: .91; font-weight: 680; letter-spacing: -.085em; }
-  .gm h1 em { color: var(--lime); font-weight: 550; }
-  .gm .intro { max-width: 500px; margin-bottom: 28px; color: #e0e5d9; font-size: clamp(16px, 1.8vw, 19px); }
-  .gm .intro-highlight { padding-inline: .16em; border-radius: .15em; background: var(--lime); color: #0b0d0a; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-  .gm .section { padding-block: clamp(58px, 8vw, 112px); scroll-margin-top: 12px; }
-  .gm h2 { max-width: 790px; margin-bottom: 32px; font-size: clamp(34px, 5.3vw, 70px); font-weight: 650; line-height: 1.03; letter-spacing: -.065em; }
-  .gm h3 { margin-bottom: 10px; font-size: 22px; line-height: 1.17; letter-spacing: -.035em; }
-  .gm .services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .gm .card { position: relative; isolation: isolate; overflow: hidden; min-height: 220px; padding: clamp(24px, 3vw, 38px); border: 1px solid #263654; border-radius: 18px; background: radial-gradient(ellipse at 100% 0%, #18315a88, transparent 48%), linear-gradient(145deg, #111a2b, #0d121d 76%); box-shadow: inset 0 1px #d8e8ff0a, 0 14px 36px #03091522; animation: service-card-enter .72s cubic-bezier(.2,.7,.25,1) both; transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease, background-color .35s ease; }
-  .gm .card::before { content: ""; position: absolute; z-index: -1; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #82b7ff, #c4fa56, transparent); opacity: .72; }
-  .gm .card::after { content: ""; position: absolute; z-index: -1; right: -70px; bottom: -100px; width: 220px; aspect-ratio: 1; border-radius: 50%; background: #2d6cbd20; filter: blur(26px); transition: transform .5s ease, opacity .5s ease; opacity: .45; }
-  .gm .card:nth-child(2) { animation-delay: .1s; }
-  .gm .card:nth-child(3) { animation-delay: .2s; }
-  .gm .card:nth-child(4) { animation-delay: .3s; }
-  .gm .card:hover { transform: translateY(-7px); border-color: #557db8; box-shadow: inset 0 1px #d8e8ff15, 0 24px 54px #02091570, 0 0 0 1px #5b8fd31a; }
-  .gm .card:hover::after { transform: scale(1.35) translate(-12px, -8px); opacity: .9; }
-  .gm .card h3 { position: relative; max-width: 90%; color: #f1f5ff; transition: color .3s ease; }
-  .gm .card:hover h3 { color: #cfe2ff; }
-  .gm .card p, .gm .steps p, .gm .contact p { color: #b6c4d9; margin-bottom: 0; max-width: 48ch; }
-  @keyframes service-card-enter { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-  .gm .approach { border-block: 1px solid var(--line); background: #11140e; }
-  .gm .steps { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
-  .gm .steps li { border-top: 1px solid var(--line); padding-top: 18px; }
-  .gm .step-number { display: block; margin-bottom: 14px; color: var(--lime); font: 600 13px/1.5 monospace; }
-  .gm .contact { padding: clamp(28px, 6vw, 72px); border: 1px solid #414c30; border-radius: 22px; background: radial-gradient(ellipse at top right, #273919, #151a12 65%); }
-  .gm .contact h2 { margin-bottom: 18px; }
-  .gm .contact .button { margin-top: 24px; }
-  .gm .footer { border-top: 1px solid var(--line); }
-  @media (max-width: 640px) {
-    .gm .wrap { width: calc(100% - 36px); }
-    .gm .header { flex-wrap: wrap; gap: 14px; }
-    .gm .header nav { order: 3; width: 100%; }
-    .gm .hero { min-height: 0; border-radius: 18px; }
-    .gm .hero-inner { padding-block: 68px; }
-    .gm .glow span { width: 98%; right: -64%; opacity: .65; }
-    .gm .glow::after { background: linear-gradient(90deg, #10140d 3%, #10140df0 35%, #10140d55 100%); }
-    .gm .services, .gm .steps { grid-template-columns: 1fr; }
-    .gm .actions { gap: 16px 20px; }
-    .gm .footer { flex-wrap: wrap; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .gm .card { animation: none; transition: none; }
-  }
-`
