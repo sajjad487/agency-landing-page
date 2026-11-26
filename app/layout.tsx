@@ -12,10 +12,10 @@ const siteOrigin = getSiteOrigin()
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
   title: {
-    default: 'NORTHMARK | Search Visibility for the AI Era',
+    default: 'SEO, AEO & GEO Agency in Budapest | NORTHMARK',
     template: '%s | NORTHMARK',
   },
-  description: 'NORTHMARK is a Budapest-based search optimization agency specializing in SEO, AEO, GEO and AI search visibility for businesses.',
+  description: 'NORTHMARK is a Budapest-based SEO, AEO and GEO agency helping businesses improve visibility across Google, ChatGPT and AI-powered search engines.',
   applicationName: 'NORTHMARK',
   alternates: { canonical: siteOrigin },
   openGraph: {
@@ -23,13 +23,13 @@ export const metadata: Metadata = {
     siteName: 'NORTHMARK',
     locale: 'en_GB',
     url: siteOrigin,
-    title: 'NORTHMARK | Search Visibility for the AI Era',
-    description: 'Be Found. Be Understood. Be Recommended. SEO, AEO, GEO and AI search visibility for businesses.',
+    title: 'SEO, AEO & GEO Agency in Budapest | NORTHMARK',
+    description: 'NORTHMARK is a Budapest-based SEO, AEO and GEO agency helping businesses improve visibility across Google, ChatGPT and AI-powered search engines.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NORTHMARK | Search Visibility for the AI Era',
-    description: 'SEO, AEO, GEO and AI search visibility for businesses.',
+    title: 'SEO, AEO & GEO Agency in Budapest | NORTHMARK',
+    description: 'NORTHMARK is a Budapest-based SEO, AEO and GEO agency helping businesses improve visibility across Google, ChatGPT and AI-powered search engines.',
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
