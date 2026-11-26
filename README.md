@@ -21,6 +21,7 @@ Set these values in the Vercel project’s **Vars** settings for the appropriate
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Optional Google Search Console verification token. |
 | `NEXT_PUBLIC_BING_SITE_VERIFICATION` | Optional Bing Webmaster Tools verification token. |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Optional GA4 ID (`G-…`). GA4 loads only after analytics consent; a successful contact form sends a `generate_lead` event. No ID is provided by default. |
+| `key_2` | IndexNow ownership key. The existing public key file is checked against it before any IndexNow POST. Never log the key. |
 
 The contact endpoint validates and length-limits all fields, checks the request origin, requires the privacy consent checkbox, ignores a honeypot field and uses a per-submission Resend idempotency key. If Resend is not configured or delivery fails, the form reports the issue and offers a direct email link; it never shows a false success state.
 
@@ -50,6 +51,24 @@ To add an insight, append a complete entry to `lib/insights.ts` with a unique sl
 - Structured data is generated from visible page content. Validate it with Google’s Rich Results Test and Schema.org’s validator; valid markup does not guarantee enhanced results or AI citations.
 - Check `/robots.txt`, `/sitemap.xml`, canonical tags and page source after deployment. Submit the sitemap in Google Search Console and Bing Webmaster Tools after verifying the production domain.
 - Run `pnpm build` before release. TypeScript build errors are not suppressed.
+
+## Manual IndexNow bulk submission
+
+The reusable script at `scripts/indexnow-bulk-submit.mjs` is manual-only; it is not run by development, build, deploy or any public route. Set the `key_2` environment variable before using it. It fetches `https://www.corvinweb.com/sitemap.xml`, rejects sitemap URLs outside the exact HTTPS `www.corvinweb.com` origin, verifies that `https://www.corvinweb.com/<key_2>.txt` returns the matching key, and selects only URLs with a `lastmod` in the last seven days that have not already been accepted for that same `lastmod`.
+
+Preview eligible URLs without submitting:
+
+```bash
+pnpm indexnow -- --dry-run
+```
+
+Manually submit eligible URLs after reviewing the preview:
+
+```bash
+pnpm indexnow
+```
+
+Use `pnpm indexnow -- --days=14` to adjust the recency window. Requests are POSTed in batches of at most 10,000 URLs; transient network errors, HTTP 5xx and HTTP 429 responses receive bounded retries with `Retry-After` support. The script reports response statuses and submitted URLs. Successful URLs and their sitemap modification dates are recorded in `.indexnow-submission-state.json`, which is gitignored, so unchanged URLs are not resubmitted on later runs. If that local state file is removed, recently modified entries may be submitted again. No unauthenticated submission endpoint is provided.
 
 ## Owner review before launch
 
