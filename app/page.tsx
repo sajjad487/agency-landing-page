@@ -8,11 +8,11 @@ import { services } from '@/lib/services'
 
 export const metadata: Metadata = {
   ...pageMetadata(
-    'Search Visibility for the AI Era',
-    'NORTHMARK is a Budapest-based search optimization agency helping businesses improve visibility across search engines, answer engines and generative search platforms.',
+    'SEO, AEO & GEO Agency in Budapest',
+    'NORTHMARK is a Budapest-based SEO, AEO and GEO agency helping businesses improve visibility across Google, ChatGPT and AI-powered search engines.',
     '/',
   ),
-  title: { absolute: 'NORTHMARK | Search Visibility for the AI Era' },
+  title: { absolute: 'SEO, AEO & GEO Agency in Budapest | NORTHMARK' },
 }
 
 const visibilityStages = [
@@ -56,8 +56,8 @@ export default function HomePage() {
     '@type': 'WebPage',
     '@id': `${origin}#webpage`,
     url: origin,
-    name: 'Search Visibility for the AI Era | NORTHMARK',
-    description: 'SEO, AEO, GEO and AI search visibility for businesses.',
+    name: 'SEO, AEO & GEO Agency in Budapest | NORTHMARK',
+    description: 'NORTHMARK is a Budapest-based SEO, AEO and GEO agency helping businesses improve visibility across Google, ChatGPT and AI-powered search engines.',
     isPartOf: { '@id': `${origin}#website` },
     about: { '@id': `${origin}#organization` },
     inLanguage: 'en',
